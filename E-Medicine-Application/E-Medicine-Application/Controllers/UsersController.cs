@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using E_Medicine_Application.Models;
 using Microsoft.Data.SqlClient;
-
 namespace E_Medicine_Application.Controllers
 {
     [Route("api/[controller]")]
@@ -27,13 +26,13 @@ namespace E_Medicine_Application.Controllers
             response = dal.register(users, connection);
             return response;
         }
-
+         
         [HttpPost]
         [Route("login")]
         public Response login(Users users)
         {
             DAL dal = new DAL();
-            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("").ToString());    
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());    
             Response response = dal.login(users, connection);
             return response;
         }
@@ -42,10 +41,23 @@ namespace E_Medicine_Application.Controllers
         public Response viewUser(Users users)
         {
             DAL dal = new DAL();
-            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("").ToString());
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
             Response response = dal.viewUser(users,connection);
             return response;
         }
+        
+
+        [HttpPost]
+        [Route("updateProfile")]
+        public Response updateProfile(Users users)
+        {
+            DAL dal = new DAL();
+            SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("EMedCS").ToString());
+            Response response = dal.updateProfile(users,connection);
+            return response;
+
+        }
+
     }
 }
 
